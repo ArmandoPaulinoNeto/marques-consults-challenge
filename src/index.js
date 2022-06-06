@@ -12,5 +12,5 @@ const routes = require('./routes');
 app.use(routes);
 
 app.listen(port, ()=>
-    console.log('Server started in http://localhost:'+port+' or '+protocol+'://'+ip+':'+port)
+    console.log(`Server started in http://localhost:${port} or ${protocol}://${ip}:${port}`)
 );

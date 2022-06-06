@@ -6,44 +6,47 @@ const responseModel = {
     error: []
 }
 
-module.exports = {
+var artists_url = 'https://api.artic.edu/api/v1/artists/';
+var agents_url = "https://api.artic.edu/api/v1/agents/";
 
+module.exports = {
+    
     async all(req, res){
         
-        const require = {...responseModel};
-
-        (async () => {
-        try {
-            const [resp] = await axios.all([
-                axios.get('https://api.artic.edu/api/v1/artists/')
-            ]);
-            require.seccess = true;
-            require.data = resp['data'];
-            return res.json(require);
-        } catch (error) {            
-            require.data = error.response.body;
-            return res.json(require);
-        }
-        })();        
+        returnConsult(artists_url, res);        
     },
     async search(req, res){
         
-        const require = {...responseModel};
+        artists_url += `search?q=${req.params.words}`;
+        returnConsult(artists_url, res);
+    },
+    async agents(req, res){
 
-        (async () => {
+        returnConsult(agents_url, res);
+    },
+    async findAgent(req, res){
+        
+        agents_url += `${req.params.id}`;
+        returnConsult(agents_url, res);
+    }
+}
+
+function returnConsult(url, res) {
+
+    const require = { ...responseModel };
+
+    (async () => {
         try {
-                var words = req.params.words;
-                console.log(words);
-                const [resp] = await axios.all([
-                    axios.get(`https://api.artic.edu/api/v1/artists/search?${words}`)
-                ]);
-                require.seccess = true;
-                require.data = resp['data'];
-                return res.json(require);
-        } catch (error) {            
+            const [resp] = await axios.all([
+                axios.get(url)
+            ]);
+
+            require.data = resp['data'];
+            require.seccess = true;
+            return res.json(require);
+        } catch (error) {
             require.data = error.response.body;
             return res.json(require);
         }
-        })();
-    }
+    })();
 }
