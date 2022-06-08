@@ -2,32 +2,38 @@ const axios = require('axios');
 
 const responseModel = {
     seccess: false,
-    data : 'valor default',
+        data : {},
     error: []
 }
 
-var artists_url = 'https://api.artic.edu/api/v1/artists/';
-var agents_url = "https://api.artic.edu/api/v1/agents/";
+var artistsUrl = 'https://api.artic.edu/api/v1/artists/';
+var agentsUrl = "https://api.artic.edu/api/v1/agents/";
 
 module.exports = {
     
-    async all(req, res){
+    async artists(req, res){
         
-        returnConsult(artists_url, res);        
+        returnConsult(artistsUrl, res);        
     },
-    async search(req, res){
+    async artistsSearch(req, res){
         
-        artists_url += `search?q=${req.params.words}`;
-        returnConsult(artists_url, res);
+        var url = `${artistsUrl}search?q=${req.params.words}`;
+        returnConsult(url, res);
+    },
+    async findArtists(req, res){
+        
+        var url = `${artistsUrl}${req.params.id}`;
+        returnConsult(url, res);
     },
     async agents(req, res){
 
-        returnConsult(agents_url, res);
+        returnConsult(agentsUrl, res);
     },
-    async findAgent(req, res){
+    async findAgents(req, res){
         
-        agents_url += `${req.params.id}`;
-        returnConsult(agents_url, res);
+        var url = `${agentsUrl}${req.params.id}`;
+        console.log(url);
+        returnConsult(url, res);
     }
 }
 
@@ -40,13 +46,31 @@ function returnConsult(url, res) {
             const [resp] = await axios.all([
                 axios.get(url)
             ]);
+           
+            if(resp.data['pagination'] !== undefined){
 
-            require.data = resp['data'];
+                var pagination = {
+                    total: resp.data['pagination'].total,
+                    current_page: resp.data['pagination'].current_page,
+                    next_url: resp.data['pagination'].next_url
+                }
+                var datas = new Array();
+                resp.data['data'].forEach(it => {
+                    datas.push({id: it.id, api_link: it.api_link, title: it.title});
+                });
+                var fields = JSON.parse(JSON.stringify(datas));
+                require.data = {pagination, fields};
+            }else{
+                
+                require.data = {id: resp.data['data'].id, api_link: resp.data['data'].api_link, title: resp.data['data'].title};
+            }
+
             require.seccess = true;
             return res.json(require);
         } catch (error) {
-            require.data = error.response.body;
+            require.error = error.message;
             return res.json(require);
         }
     })();
 }
+
