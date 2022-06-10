@@ -74,6 +74,10 @@ function returnConsult(url, res) {
 }
 
 function saveConsulAPI(url) {
-
-    connection.query(`INSERT INTO registers VALUES (DEFAULT, '${url}', NOW())`);    
+    try {
+        connection.query(`INSERT INTO registers VALUES (DEFAULT, '${url}', NOW())`);
+    } catch (error) {
+        console.log(`Erro ao tentar inserir no banco!\n\n${error.message}`);
+    }
+            
 }
