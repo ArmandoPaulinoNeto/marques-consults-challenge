@@ -61,7 +61,7 @@ function returnConsult(url, res) {
             }
 
             response.seccess = true;
-            //saveConsulAPI(url);
+            saveConsulAPI(url);
             return res.json(response);
         }).catch(error => {
             response.error = error.message;
