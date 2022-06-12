@@ -34,16 +34,16 @@ module.exports = {
 
 function returnConsult(url, res) {
 
-    response = { seccess: false, data : {}, error: [] };
+    let responseModel = { seccess: false, data : {}, error: [] };
 
     try {
             axios.get(url).then((resp)=>{
                 
-            if(resp.data['pagination'] !== undefined){
+            if(resp.data['pagination']){
                 
-                var datas = new Array();
+                let datas = new Array();
 
-                var pagination = {
+                let pagination = {
                     total: resp.data['pagination'].total,
                     current_page: resp.data['pagination'].current_page,
                     next_url: resp.data['pagination'].next_url
@@ -53,23 +53,27 @@ function returnConsult(url, res) {
                     datas.push({id: it.id, api_link: it.api_link, title: it.title});
                 });
 
-                var fields = JSON.parse(JSON.stringify(datas));
-                response.data = {pagination, fields};
+                let fields = JSON.parse(JSON.stringify(datas));
+                responseModel.data = {pagination, fields};
             }else{
                 
-                response.data = {id: resp.data['data'].id, api_link: resp.data['data'].api_link, title: resp.data['data'].title};
+                responseModel.data = {
+                    id: resp.data['data'].id, 
+                    api_link: resp.data['data'].api_link, 
+                    title: resp.data['data'].title
+                };
             }
 
-            response.seccess = true;
+            responseModel.seccess = true;
             saveConsulAPI(url);
-            return res.json(response);
+            return res.json(responseModel);
         }).catch(error => {
-            response.error = error.message;
-            return res.json(response);
+            responseModel.error = error.message;
+            return res.json(responseModel);
         });
     } catch (error) {
-        response.error = error.message;
-        return res.json(require);
+        responseModel.error = error.message;
+        return res.json(responseModel);
     }
 }
 
@@ -78,6 +82,5 @@ function saveConsulAPI(url) {
         connection.query(`INSERT INTO registers VALUES (DEFAULT, '${url}', NOW())`);
     } catch (error) {
         console.log(`Erro ao tentar inserir no banco!\n\n${error.message}`);
-    }
-            
+    }       
 }
