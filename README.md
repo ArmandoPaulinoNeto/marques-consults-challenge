@@ -8,11 +8,11 @@ API que permite, aos desenvolvedores, explorar e integrar dados públicos de mus
 
 ### Funcionamento da API.
 
-* #### Instruções
+* #### Instruções:
 * * Baixar ou Clonar o repositório;
 * * Subir para um serviço na nuvem ou localmente;
 * * Renomer o arquivo .env.example para .env;
-* * Criar um banco de dados, apenas nomeando-o, pois as tabelas são criadas automaticamente pelo framework Sequelize.
+* * Criar um banco de dados, apenas nomeando-o, pois as tabelas são criadas automaticamente pelo framework Sequelize;
 * * Preencher o arquivo .env com as credenciais da máquina e do banco de dados que será utilizado pela à API;
 * * Executar o comando para criação da "migrate", por exemplo: npx sequelize db:migrate.
 
