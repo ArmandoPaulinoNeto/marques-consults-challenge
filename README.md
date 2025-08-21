@@ -1,24 +1,27 @@
-## desafio-marques-consult
+## Marques Consult's Challenge
 
-### API para consultar Obras de Arte com retorno no formato json.
-
+### API for querying Works of Art with responses in JSON format.
 #### Art Institute of Chicago API -> https://api.artic.edu/docs/
+* An API that allows developers to explore and integrate public museum data into their projects.
 
-API que permite, aos desenvolvedores, explorar e integrar dados públicos de museus aos projetos deles.
+### How the API Works
+* #### Instructions:
 
-### Funcionamento da API.
+* * Download or clone the repository;
 
-* #### Instruções:
-* * Baixar ou Clonar o repositório;
-* * Subir para um serviço na nuvem ou localmente;
-* * Renomer o arquivo .env.example para .env;
-* * Criar um banco de dados, apenas nomeando-o, pois as tabelas são criadas automaticamente pelo framework Sequelize;
-* * Preencher o arquivo .env com as credenciais da máquina e do banco de dados que será utilizado pela à API;
-* * Executar o comando para criação da "migrate", por exemplo: npx sequelize db:migrate.
+* * Deploy it to a cloud service or run it locally;
+
+* * Rename the file .env.example to .env;
+
+* * Create a database (just name it — the tables are automatically created by the Sequelize framework);
+
+* * Fill in the .env file with the machine and database credentials that will be used by the API;
+
+* * Run the command to create the migration, for example: npx sequelize db:migrate.
+
 
 * #### Endpoints
-
- * * #### Exemplos
+* * #### Examples
 &nbsp; &nbsp;
 - - - http://localhost:3040/artists
 &nbsp; &nbsp;
@@ -36,7 +39,7 @@ API que permite, aos desenvolvedores, explorar e integrar dados públicos de mus
 &nbsp; &nbsp;
 ![Quarto Exemplo de consumo da API](https://github.com/ArmandoPaulinoNeto/desafio-marques-consult/blob/main/printscreens/exemple3.png)
 &nbsp; &nbsp;
-* * #### Exemplos de Erros de Requisição.
+* * #### Examples of Request Errors.
 &nbsp; &nbsp;
 - - - http://localhost:3040/agents/qualquer-coisa-diverente-de-um-id
 &nbsp;
@@ -44,7 +47,7 @@ API que permite, aos desenvolvedores, explorar e integrar dados públicos de mus
 &nbsp; &nbsp;
 ![Exemplo de erro na requisição](https://github.com/ArmandoPaulinoNeto/desafio-marques-consult/blob/main/printscreens/error.png)
 &nbsp; &nbsp;
-### :computer: Tecnologias utilizadas:
+### :computer: Technologies Used:
 <br/>
 <code><img width="10%" src="https://www.vectorlogo.zone/logos/visualstudio_code/visualstudio_code-ar21.svg"></code>
 <br/>
